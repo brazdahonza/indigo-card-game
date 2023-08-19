@@ -6,7 +6,7 @@ fun main() {
 
 fun startGame() {
     printWelcome()
-    var playerPlayingFirst = true
+    var playerPlayingFirst = false
     var gameRunning = true
     while(true) {
         println("Play first?")
@@ -27,34 +27,36 @@ fun startGame() {
         }
     }
 
-    val deck: Deck = Deck()
-    val table: Table = Table(deck)
-    val player: Player = Player(deck, table)
-    val computer: ComputerPlayer = ComputerPlayer(deck, table)
+    if(gameRunning){
+        val deck = Deck()
+        val table = Table(deck)
+        val player = Player(deck, table)
+        val computer = ComputerPlayer(deck, table)
 
-    if(playerPlayingFirst) {
-        player.getCardsInHand()
-        if(!player.play()) {
-            gameRunning = false
-            println("Game Over")
+        if (playerPlayingFirst) {
+            player.getCardsInHand()
+            if (!player.play()) {
+                gameRunning = false
+                println("Game Over")
+            }
         }
-    }
 
-    while(gameRunning) {
-        if (deck.deck.isEmpty() && computer.handEmpty() && player.handEmpty()) {
-            println("Game Over")
-            break
-        }
-        computer.play()
+        while (gameRunning) {
+            if (deck.deck.isEmpty() && computer.handEmpty() && player.handEmpty()) {
+                println("Game Over")
+                break
+            }
+            computer.play()
 
-        if (deck.deck.isEmpty() && computer.handEmpty() && player.handEmpty()) {
-            println("Game Over")
-            break
-        }
-        player.getCardsInHand()
-        if(!player.play()) {
-            gameRunning = false
-            println("Game Over")
+            if (deck.deck.isEmpty() && computer.handEmpty() && player.handEmpty()) {
+                println("Game Over")
+                break
+            }
+            player.getCardsInHand()
+            if (!player.play()) {
+                gameRunning = false
+                println("Game Over")
+            }
         }
     }
 }

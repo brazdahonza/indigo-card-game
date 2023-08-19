@@ -1,7 +1,5 @@
 package indigo
 
-import java.util.Stack
-
 class Table(val deck: Deck) {
     val tableList: MutableList<String> = mutableListOf()
 
@@ -28,7 +26,6 @@ class Table(val deck: Deck) {
         println()
         cardsOnTableString = "$listSize $cardsOnTableString $lastCard"
         println(cardsOnTableString)
-        println()
     }
 
     fun add(card: String) {
