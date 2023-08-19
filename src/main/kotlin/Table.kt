@@ -29,13 +29,25 @@ class Table(val deck: Deck) {
     }
 
     fun add(card: String) {
-        var cardsOnTableString = "cards on the table, and the top card is"
         tableList.add(card)
-        val lastCard = tableList[tableList.lastIndex]
-        val listSize = tableList.size
+    }
 
-        cardsOnTableString = "$listSize $cardsOnTableString $lastCard"
-        print(cardsOnTableString)
-        println()
+    override fun toString(): String {
+        if(tableList.isEmpty()) {
+            return "No cards on the table"
+        } else {
+            var cardsOnTableString = "cards on the table, and the top card is"
+            val lastCard = tableList[tableList.lastIndex]
+            val listSize = tableList.size
+
+            cardsOnTableString = "$listSize $cardsOnTableString $lastCard"
+            return cardsOnTableString
+        }
+    }
+
+    fun clearTable(): String {
+        val tableListToString = tableList.joinToString(",")
+        tableList.removeAll(tableList)
+        return tableListToString
     }
 }

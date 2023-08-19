@@ -3,8 +3,10 @@ package indigo
 import java.lang.NumberFormatException
 
 class Deck {
+    val ranks: List<String> = listOf("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
+    val suits: List<String> = listOf("♦", "♥", "♠", "♣")
+    val pointRanks: List<String> = listOf("A", "10", "J", "Q", "K")
     var deck: MutableList<String> = createDeck()
-
     fun get(numberOfCardsParameter: Int): String {
         val numberOfCards = numberOfCardsParameter
         var success = false
@@ -29,10 +31,7 @@ class Deck {
         return cardsToReturn
     }
     fun createDeck(): MutableList<String> {
-        val ranks = listOf("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
-        val suits = listOf("♦", "♥", "♠", "♣")
         val cards = mutableListOf<String>()
-
         for (suit in suits) {
             for (rank in ranks) {
                 cards.add(rank + suit)
