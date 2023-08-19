@@ -25,8 +25,10 @@ class Table(val deck: Deck) {
         val listSize = tableList.size
 
         println(initialCardsString)
+        println()
         cardsOnTableString = "$listSize $cardsOnTableString $lastCard"
-        print(cardsOnTableString)
+        println(cardsOnTableString)
+        println()
     }
 
     fun add(card: String) {

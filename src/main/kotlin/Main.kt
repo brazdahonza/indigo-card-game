@@ -10,22 +10,23 @@ fun startGame() {
 
     val deck: Deck = Deck()
     val table: Table = Table(deck)
-    val player: Player = Player(deck)
-    val computer: Player = Player(deck)
+    val player: Player = Player(deck, table)
+    val computer: ComputerPlayer = ComputerPlayer(deck, table)
 
     var gameRunning = true
+
+    if(playerPlayingFirst) {
+        player.getCardsInHand()
+        player.play()
+    }
+
     while(gameRunning) {
-        println("Choose an action (reset, shuffle, get, exit):")
-        val option = readln()
-        when(option) {
-            "reset" -> deck.resetDeck()
-            "shuffle" -> deck.shuffleDeck()
-            "get" -> deck.get(6)
-            "exit" -> {
-                gameRunning = false
-                println("Bye")
-            }
-            else -> println("Wrong action.")
+        computer.play()
+        player.getCardsInHand()
+        player.play()
+
+        if (deck.deck.isEmpty()) {
+            gameRunning = false
         }
     }
 }
