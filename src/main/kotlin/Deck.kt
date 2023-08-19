@@ -17,7 +17,6 @@ class Deck {
             }
 
             if (deck.size < numberOfCards) {
-                println("The remaining cards are insufficient to meet the request.")
                 break
             }
 

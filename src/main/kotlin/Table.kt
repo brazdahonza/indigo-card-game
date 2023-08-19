@@ -39,5 +39,6 @@ class Table(val deck: Deck) {
 
         cardsOnTableString = "$listSize $cardsOnTableString $lastCard"
         print(cardsOnTableString)
+        println()
     }
 }

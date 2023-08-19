@@ -16,20 +16,26 @@ open class Player(val deck: Deck, val table: Table) {
         }
     }
 
-    open fun play() {
+    open fun play(): Boolean {
         var chosenCorrectCard = false
         var chosenCardIndex: Int = 0
 
         while(!chosenCorrectCard) {
             println("Choose a card to play (1-${hand.size}):")
+            val answer = readln()
+            if (answer == "exit") {
+                return false;
+            }
             chosenCardIndex = readln().toInt() - 1
-            if(chosenCardIndex < 0 || chosenCardIndex > hand.size) {
+            if(chosenCardIndex < 0 || chosenCardIndex >= hand.size) {
                 continue
             }
+            println()
             table.add(hand[chosenCardIndex])
             removeCardFromHand(chosenCardIndex)
             chosenCorrectCard = true
         }
+        return true;
     }
 
     fun removeCardFromHand(cardIndex: Int) {
@@ -47,5 +53,9 @@ open class Player(val deck: Deck, val table: Table) {
             print("${i + 1})${hand[i]} ")
         }
         println()
+    }
+
+    fun handEmpty(): Boolean {
+        return hand.isEmpty()
     }
 }

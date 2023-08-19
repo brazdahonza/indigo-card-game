@@ -2,14 +2,14 @@ package indigo
 
 class ComputerPlayer(deck: Deck, table: Table) : Player(deck, table) {
 
-    override fun play() {
+    override fun play():Boolean {
         val chosenCardIndex: Int = hand.lastIndex
         val cardPlayed = hand[hand.lastIndex]
-        table.add(hand[chosenCardIndex])
 
-        println()
         removeCardFromHand(chosenCardIndex)
-        println()
         println("Computer plays $cardPlayed")
+        println()
+        table.add(cardPlayed)
+        return true
     }
 }
