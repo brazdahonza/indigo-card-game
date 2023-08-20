@@ -49,10 +49,12 @@ open class Player(val deckObject: Deck, val table: Table, val game: Game) {
 
             if(table.tableList.isNotEmpty()) {
                 if (checkCard(hand[chosenCardIndex])) {
-                    var winString = "${this.javaClass.simpleName} wins cards"
+                    val winString = "${this.javaClass.simpleName} wins cards"
                     println(winString)
                     game.printScore()
+                    removeCardFromHand(chosenCardIndex)
                     println(table.toString())
+                    game.lastWon = "player"
                 } else {
                     table.add(hand[chosenCardIndex])
                     removeCardFromHand(chosenCardIndex)
@@ -75,15 +77,30 @@ open class Player(val deckObject: Deck, val table: Table, val game: Game) {
         val cardSymbolArray = card.toCharArray()
         val lastDeckCardArray = table.tableList[table.tableList.lastIndex].toCharArray()
 
-        if (cardSymbolArray[0] == lastDeckCardArray[0] || cardSymbolArray[1] == lastDeckCardArray[1]) {
-            increaseCardCount(1)
-            if(cardSymbolArray[0].toString() in deckObject.pointRanks) increaseScoreCount(1)
-            val cardsFromTable = table.clearTable().split(",")
-            for(card in cardsFromTable) {
-                increaseCardCount(1)
-                if(card.toCharArray()[0].toString() in deckObject.pointRanks) {
+        if(cardSymbolArray[cardSymbolArray.lastIndex] == lastDeckCardArray[lastDeckCardArray.lastIndex]) {
+//            increaseCardCount(1)
+            // increaseScoreCount(1)
+            val cardsFromTable = table.clearTable().split(",").toMutableList()
+            cardsFromTable.add(card)
+            for(cardtable in cardsFromTable) {
+                if(cardtable.length == 3) {
+                    increaseScoreCount(1)
+                } else if(cardtable.toCharArray()[0].toString() in deckObject.pointRanks) {
                     increaseScoreCount(1)
                 }
+                increaseCardCount(1)
+            }
+            return true
+        } else if(cardSymbolArray[0] == lastDeckCardArray[0]) {
+            val cardsFromTable = table.clearTable().split(",").toMutableList()
+            cardsFromTable.add(card)
+            for(cardtable in cardsFromTable) {
+                if(cardtable.length == 3) {
+                    increaseScoreCount(1)
+                } else if(cardtable.toCharArray()[0].toString() in deckObject.pointRanks) {
+                    increaseScoreCount(1)
+                }
+                increaseCardCount(1)
             }
             return true
         } else {
@@ -99,7 +116,7 @@ open class Player(val deckObject: Deck, val table: Table, val game: Game) {
         }
     }
 
-    fun getCardsInHand() {
+    open fun getCardsInHand() {
         print("Cards in hand: ")
 
         for (i in 0..hand.lastIndex) {
@@ -108,7 +125,4 @@ open class Player(val deckObject: Deck, val table: Table, val game: Game) {
         println()
     }
 
-    fun handEmpty(): Boolean {
-        return hand.isEmpty()
-    }
 }

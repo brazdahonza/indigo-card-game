@@ -33,15 +33,15 @@ class Table(val deck: Deck) {
     }
 
     override fun toString(): String {
-        if(tableList.isEmpty()) {
-            return "No cards on the table"
+        return if(tableList.isEmpty()) {
+            "No cards on the table"
         } else {
             var cardsOnTableString = "cards on the table, and the top card is"
             val lastCard = tableList[tableList.lastIndex]
             val listSize = tableList.size
 
             cardsOnTableString = "$listSize $cardsOnTableString $lastCard"
-            return cardsOnTableString
+            cardsOnTableString
         }
     }
 
@@ -49,5 +49,27 @@ class Table(val deck: Deck) {
         val tableListToString = tableList.joinToString(",")
         tableList.removeAll(tableList)
         return tableListToString
+    }
+
+    fun getCandidateCards(hand: MutableList<String>): MutableList<String> {
+        val candidateCards: MutableList<String> = mutableListOf()
+        val lastCard: CharArray
+        try {
+            lastCard = tableList[tableList.lastIndex].toCharArray()
+        } catch(e: IndexOutOfBoundsException){
+            return candidateCards
+        }
+
+        for(card in hand) {
+            val cardArray = card.toCharArray()
+
+            if (cardArray[cardArray.lastIndex] == lastCard[lastCard.lastIndex]){
+                candidateCards.add(card)
+            } else if (cardArray[0] == lastCard[0]) {
+                candidateCards.add(card)
+            }
+        }
+
+        return candidateCards
     }
 }

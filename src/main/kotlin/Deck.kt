@@ -1,7 +1,5 @@
 package indigo
 
-import java.lang.NumberFormatException
-
 class Deck {
     val ranks: List<String> = listOf("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
     val suits: List<String> = listOf("♦", "♥", "♠", "♣")
@@ -10,7 +8,7 @@ class Deck {
     fun get(numberOfCardsParameter: Int): String {
         val numberOfCards = numberOfCardsParameter
         var success = false
-        var cardsToReturn: String = ""
+        var cardsToReturn = ""
 
         while (!success){
             if (numberOfCards <= 0 || numberOfCards > 52) {
@@ -41,14 +39,16 @@ class Deck {
         return cards
     }
 
-    fun shuffleDeck() {
-        deck.shuffle()
-        println("Card deck is shuffled.")
-    }
+    fun getCardsBySuit(hand: MutableList<String>, s: String): MutableList<String> {
+        val returnCardList = mutableListOf<String>()
 
-    fun resetDeck() {
-        deck = createDeck()
-        println("Card deck is reset.")
+        for (card in hand) {
+            if (card.contains(s)) {
+                returnCardList.add(card)
+            }
+        }
+
+        return returnCardList
     }
 
 }
