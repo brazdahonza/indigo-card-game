@@ -61,7 +61,7 @@ class Computer(deck: Deck, table: Table, game: Game) : Player(deck, table, game)
 
 
     private fun noCardsOnTable(list: MutableList<String>): String {
-        var cardToReturn: String
+        val cardToReturn: String
 
         val heartCards = deckObject.getCardsBySuit(list, "♥")
         val diamondsCards = deckObject.getCardsBySuit(list, "♦")
