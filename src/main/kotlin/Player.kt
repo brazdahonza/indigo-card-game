@@ -78,8 +78,6 @@ open class Player(val deckObject: Deck, val table: Table, val game: Game) {
         val lastDeckCardArray = table.tableList[table.tableList.lastIndex].toCharArray()
 
         if(cardSymbolArray[cardSymbolArray.lastIndex] == lastDeckCardArray[lastDeckCardArray.lastIndex]) {
-//            increaseCardCount(1)
-            // increaseScoreCount(1)
             val cardsFromTable = table.clearTable().split(",").toMutableList()
             cardsFromTable.add(card)
             for(cardtable in cardsFromTable) {

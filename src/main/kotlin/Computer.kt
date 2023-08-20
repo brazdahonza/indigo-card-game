@@ -38,27 +38,19 @@ class Computer(deck: Deck, table: Table, game: Game) : Player(deck, table, game)
 
     private fun getCardToPlay(): String {
         val candidateCards = table.getCandidateCards(hand)
-//        println(candidateCards)
-        if(hand.size == 1) {
-//            println("podminka1")
-            return hand[0]
+        return if(hand.size == 1) {
+            hand[0]
         } else if(candidateCards.size == 1) {
-//            println("podminka2")
-            return candidateCards[0]
+            candidateCards[0]
         } else if(table.tableList.isEmpty()){
-//            println("podminka3")
-            return noCardsOnTable(hand)
+            noCardsOnTable(hand)
         } else if(candidateCards.size == 0) {
-//            println("podminka4")
-            return noCardsOnTable(hand)
+            noCardsOnTable(hand)
         } else {
-//            println("podminka5")
             candidateCards.shuffle()
-            return noCardsOnTable(candidateCards)
+            noCardsOnTable(candidateCards)
         }
     }
-
-
 
     private fun noCardsOnTable(list: MutableList<String>): String {
         val cardToReturn: String
@@ -73,8 +65,6 @@ class Computer(deck: Deck, table: Table, game: Game) : Player(deck, table, game)
         if(diamondsCards.size > 1) cardsToChooseFrom.addAll(diamondsCards)
         if(clubsCards.size > 1) cardsToChooseFrom.addAll(clubsCards)
         if(spadesCards.size > 1) cardsToChooseFrom.addAll(spadesCards)
-
-//        println(cardsToChooseFrom)
 
         if(cardsToChooseFrom.size >= 2) {
             cardsToChooseFrom.shuffle()
